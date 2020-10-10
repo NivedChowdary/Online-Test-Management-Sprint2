@@ -128,7 +128,7 @@ package com.capg.otms.user.service;
 		}
 		@Override
 		public boolean validateAdmin(String userName, String userPassword) {
-
+			
 			boolean valid=false;
 			User user=repo.getUserByName(userName);
 			System.out.println(user);

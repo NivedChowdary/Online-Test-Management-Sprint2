@@ -30,6 +30,7 @@ import com.capg.otms.test.service.TestService;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/test")
 public class TestController {
 

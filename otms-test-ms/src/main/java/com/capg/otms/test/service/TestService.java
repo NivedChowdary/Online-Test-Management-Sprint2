@@ -27,7 +27,7 @@ public class TestService implements ITestService{
 	ITestJpaRepo testRepo;
 	
 	@Autowired
-	RestTemplate rt;
+	RestTemplate resttemplate;
 	
 	double score;
 	
@@ -86,27 +86,27 @@ public class TestService implements ITestService{
 		}
 		double score=0;
 		TestBean testBean = testRepo.getOne(testId);
-		List<Long> qIds = new ArrayList(testBean.getTestQuestions());
-		for(int i=0; i<qIds.size();i++) {
-			Question q = rt.getForObject("http://localhost:8030/question/id/"+qIds.get(i), Question.class);
-			if(q==null) {
+		List<Long> questionIds = new ArrayList(testBean.getTestQuestions());
+		for(int index=0; index<questionIds.size();index++) {
+			Question question = resttemplate.getForObject("http://localhost:8030/question/id/"+questionIds.get(index), Question.class);
+			if(question==null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 			else {
-			score = score + q.getMarksScored();
+			score = score + question.getMarksScored();
 		}}
 		return new ResponseEntity<>(score,HttpStatus.OK);
 	}
 	@Override
 	public ResponseEntity<Question> fetchQuestion(long questionId) {
 		try {
-		Question question = rt.getForObject("http://localhost:8030/question/id/"+questionId, Question.class);
+		Question question = resttemplate.getForObject("http://localhost:8030/question/id/"+questionId, Question.class);
 		//System.out.println(question);
 		if(question==null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(question,HttpStatus.OK);
-		}catch(Exception e) {
+		}catch(Exception exception) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -116,34 +116,34 @@ public class TestService implements ITestService{
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		TestBean testBean = testRepo.getOne(testId);
-		List<Long> qIds = new ArrayList(testBean.getTestQuestions());
+		List<Long> questionIds = new ArrayList(testBean.getTestQuestions());
 		List<Question> questions = new ArrayList<>();
-		for(int i=0; i<qIds.size();i++) {
-			Question q = rt.getForObject("http://localhost:8030/question/id/"+qIds.get(i), Question.class);
-			if(q==null) {
+		for(int index=0; index<questionIds.size();index++) {
+			Question question = resttemplate.getForObject("http://localhost:8030/question/id/"+questionIds.get(index), Question.class);
+			if(question==null) {
 				return new ResponseEntity(HttpStatus.NOT_FOUND);
 			}
 			else {
-				questions.add(q);
+				questions.add(question);
 			}
 		}
 		return new ResponseEntity<>(questions,HttpStatus.OK);
 	}
 	@Override
-	public ResponseEntity<TestBean> setTestQuestions(long testId, Set<Long> qIds) {
+	public ResponseEntity<TestBean> setTestQuestions(long testId, Set<Long> questionIds) {
 		if(!testRepo.existsById(testId)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		try {
 		TestBean testBean = testRepo.getOne(testId);
-		List<Long> qIds2 = new ArrayList(qIds);
-		for(int i=0; i<qIds2.size();i++) {
-			Question q = rt.getForObject("http://localhost:8030/question/id/"+qIds2.get(i), Question.class);
-			if(q==null) {
+		List<Long> questionIds2 = new ArrayList(questionIds);
+		for(int index=0; index<questionIds2.size();index++) {
+			Question question = resttemplate.getForObject("http://localhost:8030/question/id/"+questionIds2.get(index), Question.class);
+			if(question==null) {
 				return new ResponseEntity(HttpStatus.NOT_FOUND);
 			}
 		}
-		testBean.setTestQuestions(qIds);
+		testBean.setTestQuestions(questionIds);
 		
 		return new ResponseEntity<>(testRepo.save(testBean),HttpStatus.OK);
 		}catch(HttpClientErrorException e) {
