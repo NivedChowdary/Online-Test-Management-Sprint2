@@ -13,3 +13,9 @@
 2020-10-12 11:49:49,771 ERROR com.capg.otms.test.service.TestService [http-nio-8020-exec-5] This is the  error for getTest 
 2020-10-12 11:49:49,772 INFO com.capg.otms.test.service.TestService [http-nio-8020-exec-5] This is the info for getTest
 2020-10-12 11:49:49,772 WARN com.capg.otms.test.service.TestService [http-nio-8020-exec-5] This is the warning for getTest
+2020-10-12 13:01:31,639 ERROR com.capg.otms.test.service.TestService [restartedMain] This is the  error for addTest 
+2020-10-12 13:01:31,640 INFO com.capg.otms.test.service.TestService [restartedMain] This is the info for addTest
+2020-10-12 13:01:31,640 WARN com.capg.otms.test.service.TestService [restartedMain] This is the warning for addTest
+2020-10-12 13:01:49,997 ERROR com.capg.otms.test.service.TestService [http-nio-8020-exec-1] This is the  error for getTest 
+2020-10-12 13:01:49,999 INFO com.capg.otms.test.service.TestService [http-nio-8020-exec-1] This is the info for getTest
+2020-10-12 13:01:49,999 WARN com.capg.otms.test.service.TestService [http-nio-8020-exec-1] This is the warning for getTest

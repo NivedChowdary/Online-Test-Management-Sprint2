@@ -47,7 +47,7 @@ public class TestService implements ITestService{
 		logger.error("This is the  error for getTest "); 
 		  logger.info("This is the info for getTest"); 
 		  logger.warn("This is the warning for getTest");
-		  //logger.trace("This is the trace for getTest");
+		  logger.trace("This is the trace for getTest");
 		
 		if(!testRepo.existsById(testId)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
