@@ -51,7 +51,7 @@ public class TestController {
 	  - End Point Url       : /id
 	  - Request Method Type : GetMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 5/10/2020
 	  - Description         : Getting the Test detail from the database
 	 ******************************************/
 	@GetMapping("/id/{testId}")
@@ -65,7 +65,7 @@ public class TestController {
 	  - End Point Url       : /all
 	  - Request Method Type : GetMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 5/10/2020
 	  - Description         : Getting the Test details from the database
 	 ******************************************/
 	@GetMapping("/all")
@@ -79,7 +79,7 @@ public class TestController {
 	  - End Point Url       : /add
 	  - Request Method Type : PostMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 5/10/2020
 	  - Description         : Adding the Test details in to the database
 	 ******************************************/
 	@PostMapping("/add")
@@ -93,7 +93,7 @@ public class TestController {
 	  - End Point Url       : /update
 	  - Request Method Type : PutMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 5/10/2020
 	  - Description         : Updating the Test details in to the database
 	 ******************************************/
 	@PutMapping("/update/{testId}")
@@ -107,7 +107,7 @@ public class TestController {
 	  - End Point Url       : /assign
 	  - Request Method Type : PutMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 5/10/2020
 	  - Description         : assigning test to user
 	 ******************************************/
 	@PutMapping("/assign/{testId}/question/{questionId}")
@@ -121,7 +121,7 @@ public class TestController {
 	  - End Point Url       : /delete
 	  - Request Method Type : DeleteMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 5/10/2020
 	  - Description         : deleting the Test details from the database
 	 ******************************************/
 	@DeleteMapping("delete/id/{testId}")
@@ -137,7 +137,7 @@ public class TestController {
 	  - End Point Url       : /question
 	  - Request Method Type : PutMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 7/10/2020
 	  - Description         : fetching questions
 	 ******************************************/
 	@GetMapping("/question/{questionId}")
@@ -151,7 +151,7 @@ public class TestController {
 	  - End Point Url       : /setTestQuestions
 	  - Request Method Type : PutMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 7/10/2020
 	  - Description         : assigning questions to test
 	 ******************************************/
 	@PutMapping("/setTestQuestions/testId/{testId}")
@@ -165,11 +165,25 @@ public class TestController {
 	  - End Point Url       : /setTestQuestions
 	  - Request Method Type : PutMapping 
 	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
+	  - Creation Date       : 7/10/2020
 	  - Description         : assigning questions to test
 	 ******************************************/
 	@GetMapping("/questions/{testId}")
 	public ResponseEntity<List<Question>> getTestQuestions(@PathVariable long testId){
 		return service.getTestQuestions(testId);
+	}
+	/******************************************
+	  - Method Name         : calculateTotalMarks
+	  - Input Parameters    : long testId
+	  - Return Type         : Double
+	  - End Point Url       : /calculate
+	  - Request Method Type : GetMapping 
+	  - Author              : Nived 
+	  - Creation Date       : 7/10/2020
+	  - Description         : assigning questions to test
+	 ******************************************/
+	@GetMapping("/calculate/{testId}")
+	public ResponseEntity<Double> calculateTotalMarks(@PathVariable long testId){
+		return service.calculateTotalMarks(testId);
 	}
 }

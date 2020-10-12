@@ -34,20 +34,14 @@ public class TestService implements ITestService{
 	
 	@Override
 	public ResponseEntity<List<TestBean>> fetchAllTests(){	
-		logger.error("This is the  error logs for fetchAllTest "); 
-		  logger.info("This is the info for fetchAllTest "); 
-		  logger.warn("This is the warning for fetchAllTest");
-		  //logger.trace("This is the trace for fetchAllTest");
+		
 		return new ResponseEntity<>(testRepo.findAll(),HttpStatus.OK);
 	}
 	
 	@Override
 	public ResponseEntity<TestBean> getTest(long testId) {
 		
-		logger.error("This is the  error for getTest "); 
-		  logger.info("This is the info for getTest"); 
-		  logger.warn("This is the warning for getTest");
-		  logger.trace("This is the trace for getTest");
+		
 		
 		if(!testRepo.existsById(testId)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -58,20 +52,14 @@ public class TestService implements ITestService{
   @Override
  @Transactional
   public ResponseEntity<TestBean> addtest (TestBean testBean) {
-	  logger.error("This is the  error for addTest "); 
-	  logger.info("This is the info for addTest"); 
-	  logger.warn("This is the warning for addTest");
-	 // logger.trace("This is the trace for addTest");
+	  
 	  return new ResponseEntity<>(testRepo.save(testBean),HttpStatus.OK);
   }	
   
 	@Override
 	@Transactional
 	public ResponseEntity deleteTest(long testId) {
-		logger.error("This is the  error for deleteTest"); 
-		  logger.info("This is the info for deleteTest"); 
-		  logger.warn("This is the warning for deleteTest");
-		  //logger.trace("This is the trace for deleteTest");
+		
 		if(!testRepo.existsById(testId)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -82,11 +70,9 @@ public class TestService implements ITestService{
 	@Override
 	@Transactional
 	public ResponseEntity<TestBean> updateTest(TestBean newTestData,long testId) {
-		logger.error("This is the  error for updateTest "); 
-		  logger.info("This is the info for updateTest"); 
-		  logger.warn("This is the warning for updateTest");
-		 // logger.trace("This is the trace for updateTest");
+		
 		if(!testRepo.existsById(testId)) {
+			logger.error("Test not found");
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		TestBean testBean=testRepo.getOne(testId);		
@@ -104,18 +90,17 @@ public class TestService implements ITestService{
 	
 	@Override
 	public ResponseEntity<Question> fetchQuestion(long questionId) {
-		logger.error("This is the  error for fetchQuestion "); 
-		  logger.info("This is the info for fetchQuestion"); 
-		  logger.warn("This is the warning for fetchQuestion");
-		  //logger.trace("This is the trace for fetchQuestion");
+		
 		try {
 		Question question = resttemplate.getForObject("http://localhost:8030/question/id/"+questionId, Question.class);
 		//System.out.println(question);
 		if(question==null) {
+			logger.info("Question is null");
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(question,HttpStatus.OK);
 		}catch(Exception exception) {
+			logger.error("Exception raised on test service"+exception.getMessage());
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -181,4 +166,25 @@ public ResponseEntity<TestBean> assignQuestion(long testId, long questionId) {
 		testBean.getTestQuestions().add(questionId);
 		 return new ResponseEntity<>(testRepo.save(testBean),HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<Double> calculateTotalMarks(long testId) {
+		if(!testRepo.existsById(testId)) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		double score=0;
+		TestBean testBean = testRepo.getOne(testId);
+		List<Long> questionIds = new ArrayList(testBean.getTestQuestions());
+		for(int i=0; i<questionIds.size();i++) {
+			Question q = resttemplate.getForObject("http://localhost:8030/question/id/"+questionIds.get(i), Question.class);
+			if(q==null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			else {
+			score = score + q.getMarksScored();
+		}}
+		return new ResponseEntity<>(score,HttpStatus.OK);
+	}
+		
+	
 }

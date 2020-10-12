@@ -31,7 +31,7 @@ public class VerifyTest {
 
 	@When("^Admin clicks on Login button$")
 	public void admin_clicks_on_Login_button() throws Throwable {
-		driver.findElement(By.xpath("//button[contains(text(),'submit')]")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'Login')]")).click();
 	}
 
 	@Then("^Admin should be able to see a message\"([^\"]*)\"\\.$")
@@ -71,12 +71,13 @@ public class VerifyTest {
 	@When("^Admin clicks on Add button$")
 	public void admin_clicks_on_Add_button() throws Throwable {
 		driver.findElement(By.xpath("//button[contains(text(),'Add Test')]")).click();
+		Thread.sleep(1000);
 	}
 
 	
 	@Then("^Admin view message as \"([^\"]*)\"\\.$")
 	public void admin_view_message_as(String arg1) throws Throwable {
-		Thread.sleep(1000);
+		
 		Alert alert = driver.switchTo().alert();
 		Thread.sleep(1000);
 		alert.accept();
