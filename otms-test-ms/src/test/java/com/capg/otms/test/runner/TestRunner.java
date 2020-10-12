@@ -6,7 +6,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="Features/Test.feature",glue= {"stepdefinition"})
+@CucumberOptions(features="Features/Test.feature",glue= {"com.capg.otms.test.stepdefinition"})
 public class TestRunner {
 
 	

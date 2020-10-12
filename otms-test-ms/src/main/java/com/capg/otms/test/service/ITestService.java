@@ -14,7 +14,7 @@ public interface ITestService{
 		public ResponseEntity deleteTest(long testId);
 		public ResponseEntity<TestBean>  getTest(long testId);
 		public ResponseEntity<List<TestBean>> fetchAllTests();
-		ResponseEntity<Double> calculateTotalMarks(long testId);
+		
 		ResponseEntity<List<Question>> getTestQuestions(long testId);
 		ResponseEntity<TestBean> setTestQuestions(long testId, Set<Long> qIds);
 		ResponseEntity<Question> fetchQuestion(long questionId);

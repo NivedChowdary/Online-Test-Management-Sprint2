@@ -128,20 +128,8 @@ public class TestController {
 	public ResponseEntity<TestBean> deleteTest(@PathVariable long testId){
 	return service.deleteTest(testId);
 	}
-	/******************************************
-	  - Method Name         : calculateTotalMarks
-	  - Input Parameters    : long testId
-	  - Return Type         : Double
-	  - End Point Url       : /calculate
-	  - Request Method Type : GetMapping 
-	  - Author              : Nived 
-	  - Creation Date       : 28/09/2020
-	  - Description         : Calculating total marks of user
-	 ******************************************/
-	@GetMapping("/calculate/{testId}")
-	public ResponseEntity<Double> calculateTotalMarks(@PathVariable long testId){
-		return service.calculateTotalMarks(testId);
-	}
+	
+	
 	/******************************************
 	  - Method Name         : fetchQuestion
 	  - Input Parameters    : long testId
