@@ -1,3 +1,3 @@
-2020-10-12 16:16:27,398 ERROR com.capg.otms.test.service.TestService [restartedMain] This is the  error for addTest 
-2020-10-12 16:16:27,400 INFO com.capg.otms.test.service.TestService [restartedMain] This is the info for addTest
-2020-10-12 16:16:27,400 WARN com.capg.otms.test.service.TestService [restartedMain] This is the warning for addTest
+2020-10-13 07:14:25,109 ERROR com.capg.otms.test.service.TestService [http-nio-8020-exec-2] This is the  error for assignQuestion 
+2020-10-13 07:14:25,118 INFO com.capg.otms.test.service.TestService [http-nio-8020-exec-2] This is the info for setTestQuestion
+2020-10-13 07:14:25,120 WARN com.capg.otms.test.service.TestService [http-nio-8020-exec-2] This is the warning for setTestQuestion
